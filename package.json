@@ -1,0 +1,23 @@
+{
+  "name": "ATM",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chasereske/ATM.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chasereske/ATM/issues"
+  },
+  "homepage": "https://github.com/chasereske/ATM#readme",
+  "dependencies": {
+    "prompt-sync": "^4.2.0"
+  }
+}
