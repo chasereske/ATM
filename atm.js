@@ -3,79 +3,90 @@
 const initialUserAccountInfo = require('./account');
 const prompt = require('prompt-sync')();
 
-let userResponse = userAttemptedPin();
+let accountBalance = initialUserAccountInfo.balance;
 
-function userAttemptedPin () {
-    userResponse = prompt().parseINT;
-    return userResponse;
-}
+function userAttemptedPin() {
+    console.log("What is your pin? Type only a four digit numerical value.");
+    let userResponseAnswer = prompt();
+    let userResponseNumber = parseInt(userResponseAnswer);
 
-function validatePin() {
-    if(userResponse === initialUserAccountInfo.userPin) {
-        userMenu();
+    if(userResponseNumber === initialUserAccountInfo.userPin) {
+        console.log("Welcome! Please choose what you would like to do on the following menu!");
     } else {
-        console.log("That was incorrect. Please try again.");
+        console.log("Your input is invalid. Please try again!");
         userAttemptedPin();
     }
 }
 
-function userMenu() { 
-    function getBalance() {
-        let currentBalance = initialUserAccountInfo.balance;
-        console.log("Your current balance is " + currentBalance);
-        
-        console.log("Whould you like to make a withdraw? Only respond 'yes' or 'no'.")
-        let askUserWithdraw = prompt();
+function get_Balance() {
+    console.log("Your current balance is $" + accountBalance);
+    atmMenu();
+}
 
-        if(askUserWithdraw === "yes") {
-            withdraw();
-        } else {
-            console.log("Have a good day!");
-        }
-    }
+function make_deposit(){
+    console.log("How much would you like to deposit?");
+    let depositAnswer = prompt();
+    let depositNumber = parseFloat(depositAnswer);
 
-    function withdraw() {
-        
-        console.log("How much would you like to withdrawal? Enter only a numerical value.");
-        let askWithdrawalAmount = prompt()
-
-        initialUserAccountInfo.balance -= askWithdrawalAmount; 
-
-        console.log("Would you like to make another withdrawl? Only enter 'yes' or 'no'.");
-        let anotherWithdrawl = prompt(); 
-
-        if(anotherWithdrawl = 'yes') {
-
-        } else {
-            console.log("Would you like to make a deposit? Only enter 'yes' or 'no'.");
-            let askAboutDeposit = prompt();
-
-            if(askAboutDeposit === 'yes' ){
-                deposit();
-            } else {
-                console.log("Have a nice day!");
-            }
-        }
-
-    }
-
-    function deposit() {
-
-        console.log("How much would you like to deposit? Enter only a numerical value.");
-        let askDepositAmount = prompt()
-
-        initialUserAccountInfo.balance += askDepositAmount; 
-
-        console.log("Would you like to make another deposit? Only enter 'yes' or 'no'.");
-        let anotherDeposit = prompt(); 
-
-        if(anotherWithdrawl = 'yes') {
-
-        } else {
-            console.log("Have a great day!");
-        }
+    if(isNaN(depositNumber) || depositNumber === "") {
+        console.log("Invalid! Please enter a number!");
+        make_deposit();
+    } else {
+        accountBalance += depositNumber;
+        get_Balance();
     }
 }
 
-module.exports.validatePin = validatePin;
-module.exports.userMenu = userMenu;
+function make_withdraw() {
+    console.log("How much would you like to withdraw?");
+    let withdrawAnswer = prompt();
+    let withdrawNumber = parseFloat(withdrawAnswer);
+
+    if(isNaN(withdrawNumber) || withdrawNumber === "") {
+        console.log("Invalid! Please enter a number!");
+        make_withdraw();
+    } else {
+        accountBalance -= withdrawNumber;
+        get_Balance();
+    }
+}
+
+function error(){
+    console.log("Invalid! Accepted values are numbers 1 through 4.");
+    atmMenu();
+}
+
+function exit() {
+    console.log("You have selected to exit. Are you sure? Enter 'yes' or 'no'.");
+    let userExitConfirm = prompt();
+
+    if(userExitConfirm === "yes") {
+        console.log("Have a great day!");
+    } else {
+        atmMenu();
+    }
+}
+
+function atmMenu (){
+    console.log("Select a choice:\n 1) Balance\n 2) Deposit\n 3) Withdraw\n 4) Exit");
+    let userInput = prompt();
+    let userInputNumber = parseInt(userInput);
+
+    if(userInputNumber === 1) {
+        get_Balance();
+    } else if (userInputNumber === 2) {
+        make_deposit();
+    } else if (userInputNumber === 3) {
+        make_withdraw();
+    } else if (userInputNumber === 4) {
+        exit();
+    } else {
+        error();
+    }
+}
+
+userAttemptedPin();
+atmMenu();
+
+module.exports.userAttemptedPin = userAttemptedPin();
+module.exports.atmMenu = atmMenu(); 

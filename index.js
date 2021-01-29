@@ -4,6 +4,6 @@
 
  const userOptions = require('./atm')
 
- console.log("What is your pin number?");
+ console.log(userOptions.userAttemptedPin);
 
-
+ console.log(userOptions.atmMenu);
