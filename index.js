@@ -5,5 +5,4 @@
  const userOptions = require('./atm')
 
  console.log(userOptions.userAttemptedPin);
-
  console.log(userOptions.atmMenu);

@@ -1,9 +1,11 @@
 "use strict"
 
 const initialUserAccountInfo = require('./account');
+const indexATM = require('./index');
 const prompt = require('prompt-sync')();
 
 let accountBalance = initialUserAccountInfo.balance;
+
 
 function userAttemptedPin() {
     console.log("What is your pin? Type only a four digit numerical value.");
@@ -20,7 +22,7 @@ function userAttemptedPin() {
 
 function get_Balance() {
     console.log("Your current balance is $" + accountBalance);
-    atmMenu();
+    indexATM.atmMenu;
 }
 
 function make_deposit(){
@@ -30,10 +32,10 @@ function make_deposit(){
 
     if(isNaN(depositNumber) || depositNumber === "") {
         console.log("Invalid! Please enter a number!");
-        make_deposit();
+        indexATM.make_deposit;
     } else {
         accountBalance += depositNumber;
-        get_Balance();
+        indexATM.get_Balance;
     }
 }
 
@@ -43,17 +45,17 @@ function make_withdraw() {
     let withdrawNumber = parseFloat(withdrawAnswer);
 
     if(isNaN(withdrawNumber) || withdrawNumber === "") {
-        console.log("Invalid! Please enter a number!");
-        make_withdraw();
+        console.log("Invalid! Please enter a number!");//create a comment for this console log "error 6"
+        indexATM.make_withdraw;
     } else {
         accountBalance -= withdrawNumber;
-        get_Balance();
+        indexATM.get_Balance;
     }
 }
 
 function error(){
     console.log("Invalid! Accepted values are numbers 1 through 4.");
-    atmMenu();
+    indexATM.atmMenu;
 }
 
 function exit() {
@@ -63,7 +65,8 @@ function exit() {
     if(userExitConfirm === "yes") {
         console.log("Have a great day!");
     } else {
-        atmMenu();
+        console.log("We entered the else condition");
+        indexATM.atmMenu;
     }
 }
 
@@ -85,8 +88,6 @@ function atmMenu (){
     }
 }
 
-userAttemptedPin();
-atmMenu();
 
 module.exports.userAttemptedPin = userAttemptedPin();
 module.exports.atmMenu = atmMenu(); 
